@@ -2,9 +2,8 @@
 <form [formGroup]="searchForm" (ngSubmit)="onSubmitSearch()">
     <div class="form-group">
         <label for="search">Search</label>
-        <input type="text" class="form-control" id="search" formControlName="string">
+        <input type="text" class="form-control" id="search" formControlName="string" (keyup)=(onSubmitSearch())>
     </div>
-    <button class="btn btn-primary mb-3" type="submit">Filter</button>
 </form>
 <button class="btn btn-primary mb-3" (click)="showActive()">Show only active</button>
 <button class="btn btn-primary mb-3 ml-2" (click)="showAll()">Show all</button>

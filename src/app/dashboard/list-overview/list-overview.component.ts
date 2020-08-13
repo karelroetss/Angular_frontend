@@ -33,6 +33,10 @@ export class ListOverviewComponent implements OnInit {
     this.getAllLists();
   }
 
+  onChange(){
+    console.log("test");
+  }
+
   onSubmitSearch(){
     let string = this.searchForm.value.string;
     string = string.toLowerCase().trim();

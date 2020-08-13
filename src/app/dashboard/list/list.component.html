@@ -6,7 +6,7 @@
         <blockquote class="blockquote">{{list.startDatum | date: 'dd/MM/yyyy'}} - {{list.eindDatum | date: 'dd/MM/yyyy'}}</blockquote>
         <h5 class="card-title" style="font-size: 25px;">Items:</h5>
         <div *ngFor="let item of list.items">
-            <p class="font-weight-bold" style="font-size: 20px;">{{item.naam}} | 
+            <p style="font-size: 20px;">{{item.naam}} | 
                 <span *ngIf="item.stemmen != null">Aantal stemmen: {{item.stemmen.length}}</span>
                 <span *ngIf="item.stemmen == null">Aantal stemmen: 0</span>
                 <button (click)="delItem(item.itemID)" style="float: right;" class="btn btn-danger">Delete</button>

@@ -16,7 +16,7 @@ export class NavbarComponent implements OnInit {
   constructor(
     private _userService: UserService,
     private router: Router
-      ) { 
+  ) {
     this._userService.loggedIn.subscribe(result => {
       if (result == true) {
         this.loggedIn = true;
@@ -26,13 +26,13 @@ export class NavbarComponent implements OnInit {
     })
   }
 
-  ngOnInit(){
-    if(localStorage.getItem("isLogged")){
+  ngOnInit() {
+    if (localStorage.getItem("isLogged")) {
       this._userService.loggedIn.next(true);
     }
   }
 
-  logOut(){
+  logOut() {
     this._userService.logOut();
     this._userService.loggedIn.next(false);
     this.router.navigate(['/login']);

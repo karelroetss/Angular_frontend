@@ -59,7 +59,6 @@ export class ListVoteComponent implements OnInit {
       this._voteService.getVoteWhereUserId(this.userID, this.listId).subscribe(result => {
         if (result.stemID != 0) {
           this.voted = true;
-          this.voteForm.controls["vote"].setValue(result.itemID);
           this.itemIdVoted = result.itemID;
           this.voteId = result.stemID;
         }
