@@ -1,7 +1,7 @@
 <img src="../../../assets/back.png" (click)="goBack()" class="backbtn" alt="Back">
 <div class="card mt-5" *ngIf="inactive == 1">
     <h5 class="card-header">{{list.naam}}</h5>
-    <div class="card-body">
+    <div class="card-body" *ngIf="state == 'ended'">
         <h5 class="card-title">{{list.beschrijving}}</h5>
         <blockquote class="blockquote">{{list.startDatum | date: 'dd/MM/yyyy'}} - {{list.eindDatum | date: 'dd/MM/yyyy'}}</blockquote>
         <h5 class="card-title">Items:</h5>
@@ -10,6 +10,9 @@
                 Votes: {{item.stemmen.length}} - {{item.naam}}
             </div>
         </div>
+    </div>
+    <div class="card-body" *ngIf="state == 'coming'">
+        <h5 class="card-title">This list will be available on: {{list.startDatum | date: 'dd/MM/yyyy'}}</h5> 
     </div>
     <div class="card-footer">
         <div class="row">  
@@ -27,9 +30,9 @@
             <blockquote class="blockquote">{{list.startDatum | date: 'dd/MM/yyyy'}} - {{list.eindDatum | date: 'dd/MM/yyyy'}}</blockquote>
             <h5 class="card-title">Items:</h5>
             <div class="form-check" *ngFor="let item of list.items">
-                <input type="radio" class="form-check-input" value="{{item.itemID}}" formControlName="vote" *ngIf="item.itemID == itemIdVoted" [checked]="true">
-                <input type="radio" class="form-check-input" value="{{item.itemID}}" formControlName="vote" *ngIf="item.itemID != itemIdVoted">
-                <label for="radioVote" class="form-check-label">{{item.naam}}</label>
+                <input type="radio" class="form-check-input" value="{{item.itemID}}" id="radioVote{{item.itemID}}" formControlName="vote" *ngIf="item.itemID == itemIdVoted" [checked]="true">
+                <input type="radio" class="form-check-input" value="{{item.itemID}}" id="radioVote{{item.itemID}}" formControlName="vote" *ngIf="item.itemID != itemIdVoted">
+                <label for="radioVote{{item.itemID}}" class="form-check-label">{{item.naam}}</label>
             </div>
             <p class="card-text" *ngIf="votemsg">{{votemsg}}</p>    
         </div>
@@ -37,10 +40,7 @@
             <div class="row">  
                 <div class="col-6">
                     <button class="btn btn-primary mb-3" type="submit">Vote</button>
-                </div>
-                <div class="col-6">
-                    <button class="btn btn-primary" routerLink="/listOverview" type="button">Back</button>
-                </div>
+                </div> 
             </div>
         </div>
     </form> 

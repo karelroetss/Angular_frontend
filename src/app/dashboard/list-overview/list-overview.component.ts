@@ -54,13 +54,18 @@ export class ListOverviewComponent implements OnInit {
     this._listService.getAll().subscribe(result => {
       this.data = result;
       this.data.forEach(item => {
-        if(this.checkDateActive(item.eindDatum) == true){
+        if(this.checkDateActive(item.eindDatum, item.startDatum) == true){
           this.listActive.push(item);
           this.lists.push(item);
         }
       });
       this.data.forEach(item => {
-        if(this.checkDateActive(item.eindDatum) == false){
+        if(this.checkDateActive(item.eindDatum, item.startDatum) == "coming"){
+          this.lists.push(item);
+        }
+      });
+      this.data.forEach(item => {
+        if(this.checkDateActive(item.eindDatum, item.startDatum) == "ended"){
           this.lists.push(item);
         }
       });
@@ -73,13 +78,22 @@ export class ListOverviewComponent implements OnInit {
     this._location.back();
   }
 
-  checkDateActive(date){
+  checkDateActive(date, date1){
     var today = new Date();
-    var dateCheck:Date = new Date(date);
+    var dateEnd:Date = new Date(date);
+    var dateStart:Date = new Date(date1);
 
-    if(today < dateCheck){
+    if(today < dateEnd && today > dateStart){
       return true;
+    } else{
+      if(today > dateEnd){
+        return "ended";
+      }
+      if(today < dateStart){
+        return "coming";
+      }
     }
+    
     return false;
   }
 

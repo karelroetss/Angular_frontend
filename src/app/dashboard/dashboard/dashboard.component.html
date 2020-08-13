@@ -1,5 +1,6 @@
 <img src="../../../assets/back.png" (click)="goBack()" class="backbtn" alt="Back">
-<button class="btn" (click)="showVotedLists()">Show voted</button>
+<button class="btn btn-primary mt-3" (click)="showDashboard()">Show dashboard</button>
+<button class="btn btn-primary ml-3 mt-3" (click)="showVotedLists()">Show voted</button>
 <div *ngIf="showVoted == 0">
     <div class="row mt-3">
         <div class="col">
@@ -8,11 +9,11 @@
     </div>
     
     <div class="row mt-4">
-        <div class="col-4 mb-4"  *ngFor="let item of lijsten">
+        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 mb-4"  *ngFor="let item of lijsten">
             <div class="card" routerLink="/list/{{item.lijstID}}">
                 <h5 class="card-header">{{item.naam}}
-                    <span *ngIf="checkDateActive(item.eindDatum) == true" class="dotActive" style="float: right;"></span>
-                    <span *ngIf="checkDateActive(item.eindDatum) == false" class="dotInactive" style="float: right;"></span>
+                    <span *ngIf="checkDateActive(item.eindDatum, item.startDatum) == true" class="dotActive" style="float: right;"></span>
+                    <span *ngIf="checkDateActive(item.eindDatum, item.startDatum) != true" class="dotInactive" style="float: right;"></span>
                 </h5>
                 <div class="card-body">
                     <h6 class="card-subtitle">{{item.startDatum | date:'dd/MM/yyyy'}} - {{item.eindDatum | date:'dd/MM/yyyy'}}</h6>
@@ -26,10 +27,10 @@
 <div *ngIf="showVoted == 1">
     <div class="row mt-4">
         <div class="col-4 mb-4"  *ngFor="let item of votedlists">
-            <div class="card" routerLink="/list/{{item.lijstID}}">
+            <div class="card" routerLink="/listVote/{{item.lijstID}}">
                 <h5 class="card-header">{{item.naam}}
-                    <span *ngIf="checkDateActive(item.eindDatum) == true" class="dotActive" style="float: right;"></span>
-                    <span *ngIf="checkDateActive(item.eindDatum) == false" class="dotInactive" style="float: right;"></span>
+                    <span *ngIf="checkDateActive(item.eindDatum, item.startDatum) == true" class="dotActive" style="float: right;"></span>
+                    <span *ngIf="checkDateActive(item.eindDatum, item.startDatum) != true" class="dotInactive" style="float: right;"></span>
                 </h5>
                 <div class="card-body">
                     <h6 class="card-subtitle">{{item.startDatum | date:'dd/MM/yyyy'}} - {{item.eindDatum | date:'dd/MM/yyyy'}}</h6>

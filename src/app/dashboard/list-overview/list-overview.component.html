@@ -11,11 +11,11 @@
 
 
 <div class="row overview">
-    <div class="col-4 mb-2" *ngFor="let item of listShow | slice: (page-1) * pageSize : (page-1) * pageSize + pageSize" >
+    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 mb-2" *ngFor="let item of listShow | slice: (page-1) * pageSize : (page-1) * pageSize + pageSize" >
         <div class="card" routerLink="/listVote/{{item.lijstID}}">
             <h5 class="card-header">{{item.naam}} 
-                <span *ngIf="checkDateActive(item.eindDatum) == true" class="dotActive" style="float: right;"></span>
-                <span *ngIf="checkDateActive(item.eindDatum) == false" class="dotInactive" style="float: right;"></span>
+                <span *ngIf="checkDateActive(item.eindDatum, item.startDatum) == true" class="dotActive" style="float: right;"></span>
+                <span *ngIf="checkDateActive(item.eindDatum, item.startDatum) != true" class="dotInactive" style="float: right;"></span>
             </h5>
             <div class="card-body">
                 <h6 class="card-subtitle">{{item.startDatum | date:'dd/MM/yyyy'}} - {{item.eindDatum | date:'dd/MM/yyyy'}}</h6>
@@ -28,5 +28,5 @@
   [(page)]="page"
   [pageSize]="pageSize"
   [collectionSize]="listShow.length"
-  class="paginationControls">
+  class="paginationControls d-flex justify-content-center">
 </ngb-pagination>

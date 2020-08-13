@@ -55,6 +55,10 @@ export class DashboardComponent implements OnInit {
     );
   }
 
+  showDashboard(){
+    this.showVoted = 0;
+  }
+
   openModalList(content){
     this.modalService.open(content, { ariaLabelledBy: 'modal-list-title'});
   }
@@ -76,13 +80,22 @@ export class DashboardComponent implements OnInit {
     this.listForm.controls['startDatum'].setValue(this.datePipe.transform(this.today, 'yyyy-MM-dd'));
   }
 
-  checkDateActive(date){
+  checkDateActive(date, date1){
     var today = new Date();
-    var dateCheck:Date = new Date(date);
+    var dateEnd:Date = new Date(date);
+    var dateStart:Date = new Date(date1);
 
-    if(today < dateCheck){
+    if(today < dateEnd && today > dateStart){
       return true;
+    } else{
+      if(today > dateEnd){
+        return "ended";
+      }
+      if(today < dateStart){
+        return "coming";
+      }
     }
+
     return false;
   }
 

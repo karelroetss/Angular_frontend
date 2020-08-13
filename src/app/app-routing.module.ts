@@ -9,6 +9,7 @@ import { ListVoteComponent } from './dashboard/list-vote/list-vote.component';
 import { ListOverviewComponent } from './dashboard/list-overview/list-overview.component';
 
 const appRoutes: Routes = [
+  {path: '', component: ListOverviewComponent},
   {path: 'register', component: RegisterComponent},
   {path: 'home', component: AppComponent},
   {path: 'login', component: LoginComponent},

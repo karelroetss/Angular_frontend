@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { ListService } from 'src/app/_services/list.service';
 import { FormBuilder, FormControl } from '@angular/forms';
 import { ItemService } from 'src/app/_services/item.service';
@@ -23,6 +23,7 @@ export class ListVoteComponent implements OnInit {
   itemIdVoted;
   voteId;
   inactive;
+  state;
 
   voteForm = this.fb.group({
     vote: new FormControl('')
@@ -50,7 +51,8 @@ export class ListVoteComponent implements OnInit {
     this._listService.getListWhereId(this.listId).subscribe(result => {
       this.list = result;
 
-      if (!this.checkDateActive(this.list.eindDatum)) {
+      if (this.checkDateActive(this.list.eindDatum, this.list.startDatum) != true) {
+        this.state = this.checkDateActive(this.list.eindDatum, this.list.startDatum);
         this.inactive = 1;
       }
 
@@ -92,17 +94,26 @@ export class ListVoteComponent implements OnInit {
     }
   }
 
-  checkDateActive(date) {
+  checkDateActive(date, date1) {
     var today = new Date();
-    var dateCheck: Date = new Date(date);
+    var dateEnd: Date = new Date(date);
+    var dateStart: Date = new Date(date1);
 
-    if (today < dateCheck) {
+    if (today < dateEnd && today > dateStart) {
       return true;
+    } else {
+      if (today > dateEnd) {
+        return "ended";
+      }
+      if (today < dateStart) {
+        return "coming";
+      }
     }
+
     return false;
   }
 
-  goBack(){
+  goBack() {
     this._location.back();
   }
 }

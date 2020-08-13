@@ -3,6 +3,7 @@ import { FormControl, Validators, FormBuilder } from '@angular/forms';
 import { UserService } from 'src/app/_services/user.service';
 import { Router } from '@angular/router';
 import { UserLogin } from 'src/app/_models/user-login.model';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-login',
@@ -18,9 +19,14 @@ export class LoginComponent implements OnInit {
 
   constructor(private fb: FormBuilder,
     private _userService: UserService,
-    private router: Router) { }
+    private router: Router,
+    private _location: Location) { }
 
   ngOnInit() {
+  }
+
+  goBack() {
+    this._location.back();
   }
 
   onSubmitLogin(){

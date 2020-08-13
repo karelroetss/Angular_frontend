@@ -1,7 +1,7 @@
 .maryjane{
     background-size: cover;
     width: auto;
-    height: 100vh;
+    min-height: calc(100vh - 60px);
     background-image: url('../../assets/ganja.png');
     background-size: 40px, 40px;
     background-repeat: repeat;
