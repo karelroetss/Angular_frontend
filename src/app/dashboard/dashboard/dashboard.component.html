@@ -13,7 +13,8 @@
             <div class="card" routerLink="/list/{{item.lijstID}}">
                 <h5 class="card-header">{{item.naam}}
                     <span *ngIf="checkDateActive(item.eindDatum, item.startDatum) == true" class="dotActive" style="float: right;"></span>
-                    <span *ngIf="checkDateActive(item.eindDatum, item.startDatum) != true" class="dotInactive" style="float: right;"></span>
+                    <span *ngIf="checkDateActive(item.eindDatum, item.startDatum) == 'coming'" class="dotNotYetActive" style="float: right;"></span>
+                    <span *ngIf="checkDateActive(item.eindDatum, item.startDatum) == 'ended'" class="dotInactive" style="float: right;"></span>
                 </h5>
                 <div class="card-body">
                     <h6 class="card-subtitle">{{item.startDatum | date:'dd/MM/yyyy'}} - {{item.eindDatum | date:'dd/MM/yyyy'}}</h6>
