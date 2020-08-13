@@ -1,0 +1,74 @@
+<img src="../../../assets/back.png" (click)="goBack()" class="backbtn" alt="Back">
+<button class="btn" (click)="showVotedLists()">Show voted</button>
+<div *ngIf="showVoted == 0">
+    <div class="row mt-3">
+        <div class="col">
+            <button class="btn btn-success" type="button" (click)="openModalList(contentList)">Nieuwe lijst</button>    
+        </div>
+    </div>
+    
+    <div class="row mt-4">
+        <div class="col-4 mb-4"  *ngFor="let item of lijsten">
+            <div class="card" routerLink="/list/{{item.lijstID}}">
+                <h5 class="card-header">{{item.naam}}
+                    <span *ngIf="checkDateActive(item.eindDatum) == true" class="dotActive" style="float: right;"></span>
+                    <span *ngIf="checkDateActive(item.eindDatum) == false" class="dotInactive" style="float: right;"></span>
+                </h5>
+                <div class="card-body">
+                    <h6 class="card-subtitle">{{item.startDatum | date:'dd/MM/yyyy'}} - {{item.eindDatum | date:'dd/MM/yyyy'}}</h6>
+                    <p class="card-text">{{item.beschrijving}}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div *ngIf="showVoted == 1">
+    <div class="row mt-4">
+        <div class="col-4 mb-4"  *ngFor="let item of votedlists">
+            <div class="card" routerLink="/list/{{item.lijstID}}">
+                <h5 class="card-header">{{item.naam}}
+                    <span *ngIf="checkDateActive(item.eindDatum) == true" class="dotActive" style="float: right;"></span>
+                    <span *ngIf="checkDateActive(item.eindDatum) == false" class="dotInactive" style="float: right;"></span>
+                </h5>
+                <div class="card-body">
+                    <h6 class="card-subtitle">{{item.startDatum | date:'dd/MM/yyyy'}} - {{item.eindDatum | date:'dd/MM/yyyy'}}</h6>
+                    <p class="card-text">{{item.beschrijving}}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<ng-template #contentList let-modal>
+    <div class="modal-header">
+        <h3 class="modal-title" id="modal-list-title">Nieuwe lijst</h3>
+        <button type="button" class="close" aria-label="Close" (click)="onModalListClose(); modal.dismiss()">
+            <span aria-hidden="true">&times;</span>
+          </button>
+    </div>
+    <form [formGroup]="listForm" (ngSubmit)="onSubmitListForm(); modal.close()">
+        <div class="modal-body">
+            <div class="form-group">
+                <label for="naam">Naam</label>
+                <input type="text" class="form-control" id="naam" formControlName="naam">
+            </div>
+            <div class="form-group">
+                <label for="beschrijving">Beschrijving</label>
+                <input type="text" class="form-control" id="beschrijving" formControlName="beschrijving">
+            </div>
+            <div class="form-group">
+                <label for="startDatum">Startdatum</label>
+                <input type="date" id="startDatum" formControlName="startDatum">
+            </div>
+            <div class="form-group">
+                <label for="eindDatum">Einddatum</label>
+                <input type="date" id="eindDatum" formControlName="eindDatum">
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button type="submit" [disabled]="!listForm.valid" class="btn btn-success">Opslaan</button>
+            <button type="button" class="btn btn-danger" (click)="onModalListClose(); modal.close()">Annuleren</button>
+        </div>
+    </form>
+</ng-template>

@@ -1,0 +1,47 @@
+<img src="../../../assets/back.png" (click)="goBack()" class="backbtn" alt="Back">
+<div class="card mt-5" *ngIf="inactive == 1">
+    <h5 class="card-header">{{list.naam}}</h5>
+    <div class="card-body">
+        <h5 class="card-title">{{list.beschrijving}}</h5>
+        <blockquote class="blockquote">{{list.startDatum | date: 'dd/MM/yyyy'}} - {{list.eindDatum | date: 'dd/MM/yyyy'}}</blockquote>
+        <h5 class="card-title">Items:</h5>
+        <div class="row" *ngFor="let item of list.items">
+            <div class="col">
+                Votes: {{item.stemmen.length}} - {{item.naam}}
+            </div>
+        </div>
+    </div>
+    <div class="card-footer">
+        <div class="row">  
+            <div class="col">
+                <button class="btn btn-primary" (click)="goBack()" type="button">Back</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="card mt-5" *ngIf="list && inactive == 0">
+    <form [formGroup]="voteForm" (ngSubmit)="onSubmitVote()">
+        <h5 class="card-header">{{list.naam}}</h5>
+        <div class="card-body">
+            <h5 class="card-title">{{list.beschrijving}}</h5>
+            <blockquote class="blockquote">{{list.startDatum | date: 'dd/MM/yyyy'}} - {{list.eindDatum | date: 'dd/MM/yyyy'}}</blockquote>
+            <h5 class="card-title">Items:</h5>
+            <div class="form-check" *ngFor="let item of list.items">
+                <input type="radio" class="form-check-input" value="{{item.itemID}}" formControlName="vote" *ngIf="item.itemID == itemIdVoted" [checked]="true">
+                <input type="radio" class="form-check-input" value="{{item.itemID}}" formControlName="vote" *ngIf="item.itemID != itemIdVoted">
+                <label for="radioVote" class="form-check-label">{{item.naam}}</label>
+            </div>
+            <p class="card-text" *ngIf="votemsg">{{votemsg}}</p>    
+        </div>
+        <div class="card-footer">
+            <div class="row">  
+                <div class="col-6">
+                    <button class="btn btn-primary mb-3" type="submit">Vote</button>
+                </div>
+                <div class="col-6">
+                    <button class="btn btn-primary" routerLink="/listOverview" type="button">Back</button>
+                </div>
+            </div>
+        </div>
+    </form> 
+</div>

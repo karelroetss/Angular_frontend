@@ -1,0 +1,32 @@
+<img src="../../../assets/back.png" (click)="goBack()" class="backbtn" alt="Back">
+<form [formGroup]="searchForm" (ngSubmit)="onSubmitSearch()">
+    <div class="form-group">
+        <label for="search">Search</label>
+        <input type="text" class="form-control" id="search" formControlName="string">
+    </div>
+    <button class="btn btn-primary mb-3" type="submit">Filter</button>
+</form>
+<button class="btn btn-primary mb-3" (click)="showActive()">Show only active</button>
+<button class="btn btn-primary mb-3 ml-2" (click)="showAll()">Show all</button>
+
+
+<div class="row overview">
+    <div class="col-4 mb-2" *ngFor="let item of listShow | slice: (page-1) * pageSize : (page-1) * pageSize + pageSize" >
+        <div class="card" routerLink="/listVote/{{item.lijstID}}">
+            <h5 class="card-header">{{item.naam}} 
+                <span *ngIf="checkDateActive(item.eindDatum) == true" class="dotActive" style="float: right;"></span>
+                <span *ngIf="checkDateActive(item.eindDatum) == false" class="dotInactive" style="float: right;"></span>
+            </h5>
+            <div class="card-body">
+                <h6 class="card-subtitle">{{item.startDatum | date:'dd/MM/yyyy'}} - {{item.eindDatum | date:'dd/MM/yyyy'}}</h6>
+                <p class="card-text">{{item.beschrijving}}</p>
+            </div>
+        </div>    
+    </div>
+</div>
+<ngb-pagination
+  [(page)]="page"
+  [pageSize]="pageSize"
+  [collectionSize]="listShow.length"
+  class="paginationControls">
+</ngb-pagination>

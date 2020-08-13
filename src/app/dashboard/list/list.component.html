@@ -1,0 +1,53 @@
+<img src="../../../assets/back.png" (click)="goBack()" class="backbtn" alt="Back">
+<div class="card mt-5" *ngIf="list">
+    <h5 class="card-header test">{{list.naam}}</h5>
+    <div class="card-body">
+        <h5 class="card-title">{{list.beschrijving}}</h5>
+        <blockquote class="blockquote">{{list.startDatum | date: 'dd/MM/yyyy'}} - {{list.eindDatum | date: 'dd/MM/yyyy'}}</blockquote>
+        <h5 class="card-title" style="font-size: 25px;">Items:</h5>
+        <div *ngFor="let item of list.items">
+            <p class="font-weight-bold" style="font-size: 20px;">{{item.naam}} | 
+                <span *ngIf="item.stemmen != null">Aantal stemmen: {{item.stemmen.length}}</span>
+                <span *ngIf="item.stemmen == null">Aantal stemmen: 0</span>
+                <button (click)="delItem(item.itemID)" style="float: right;" class="btn btn-danger">Delete</button>
+            </p>
+            <p>{{item.beschrijving}}</p>
+            <hr/>
+        </div>
+    </div>
+    <div class="card-footer">
+        <div class="row">  
+            <div class="col-6">
+                <button class="btn btn-primary mb-3" type="button" (click)="openModalItem(contentItem)">Nieuw item</button>
+            </div>
+            <div class="col-6">
+                <button class="btn btn-primary mb-3" type="button" routerLink="/listVote/{{list.lijstID}}">Vote</button>        
+            </div>
+        </div>
+    </div>
+</div>
+
+<ng-template #contentItem let-modal>
+    <div class="modal-header">
+        <h3 class="modal-title" id="modal-item-title">Nieuw item</h3>
+        <button type="button" class="close" aria-label="Close" (click)="onModalItemClose(); modal.dismiss()">
+            <span aria-hidden="true">&times;</span>
+          </button>
+    </div>
+    <form [formGroup]="itemForm" (ngSubmit)="onSubmitItemForm(); modal.close()">
+        <div class="modal-body">
+            <div class="form-group">
+                <label for="naam">Naam</label>
+                <input type="text" class="form-control" id="naam" formControlName="naam">
+            </div>
+            <div class="form-group">
+                <label for="beschrijving">Beschrijving</label>
+                <input type="text" class="form-control" id="beschrijving" formControlName="beschrijving">
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button type="submit" [disabled]="!itemForm.valid" class="btn btn-success">Opslaan</button>
+            <button type="button" class="btn btn-danger" (click)="onModalItemClose(); modal.close()">Annuleren</button>
+        </div>
+    </form>
+</ng-template>

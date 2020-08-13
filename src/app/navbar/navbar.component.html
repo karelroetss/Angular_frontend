@@ -1,0 +1,37 @@
+<nav class="navbar navbar-light navbar-expand">
+    <a href="#" class="navbar-brand">
+      <img src="../assets/logo.png" height="40" alt="Ganja productions">
+    </a>
+    
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav">    
+        <li class="nav-item" *ngIf="loggedIn == true">
+          <a [routerLink]="['/dashboard']" routerLinkActive="active" class="nav-link">Dashboard</a>
+        </li>
+        <li class="nav-item">
+          <a [routerLink]="['/listOverview']" routerLinkActive="active" class="nav-link">All lists</a>
+        </li>      
+      </ul>
+      <ul class="navbar-nav ml-auto">
+        <li class="nav-item" *ngIf="loggedIn == false">
+          <a [routerLink]="['/register']" routerLinkActive="active" class="nav-link">Register</a>
+        </li>
+        <li class="nav-item" *ngIf="loggedIn == false">
+          <a [routerLink]="['/login']" routerLinkActive="active" class="nav-link">Login</a>
+        </li>
+        <li class="nav-item" *ngIf="loggedIn == true">
+          <a (click)="logOut()" routerLinkActive="active" class="nav-link">Log out</a>
+        </li> 
+      </ul>
+    </div>
+    
+  </nav>
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-lg-2 col-md-1 maryjane"></div>
+      <div class="col-lg-8 col-md-10 col ">
+        <router-outlet></router-outlet>
+      </div>
+      <div class="col-lg-2 col-md-1 maryjane"></div>
+    </div>
+  </div>
